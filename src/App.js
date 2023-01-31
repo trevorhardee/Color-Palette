@@ -2,12 +2,14 @@ import './App.css';
 import ColorTile from './Tiles/ColorTile';
 
 let tileMap = new Map();
-let totalTiles = 5;
+let totalTiles = 10;
 
 const NavBar = () => {
   return(
     <nav className='NavBar'>
       <button className='tutorial'>Tutorial</button>
+      <button className='generate'
+            onClick={() => (Palette())}>Generate</button>
       <h1 className='Title'>Color Palette</h1>
     </nav>
   );
@@ -15,6 +17,15 @@ const NavBar = () => {
 const createTileArray = (length) => [
   ...Array(length)
 ];
+
+function Palette() {
+  const event = new KeyboardEvent('keydown', {
+    key: ' ',
+    code: "Space",
+  });
+  return event;
+}
+
 
 function LayTiles() {
   tileMap = createTileArray(totalTiles).map((n, i) => (
