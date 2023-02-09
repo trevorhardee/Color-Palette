@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Color-Palette/static/css/main.67a947c0.css",
+    "main.js": "/Color-Palette/static/js/main.0631574e.js",
+    "static/js/787.0fb6e0a2.chunk.js": "/Color-Palette/static/js/787.0fb6e0a2.chunk.js",
+    "index.html": "/Color-Palette/index.html",
+    "main.67a947c0.css.map": "/Color-Palette/static/css/main.67a947c0.css.map",
+    "main.0631574e.js.map": "/Color-Palette/static/js/main.0631574e.js.map",
+    "787.0fb6e0a2.chunk.js.map": "/Color-Palette/static/js/787.0fb6e0a2.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.67a947c0.css",
+    "static/js/main.0631574e.js"
+  ]
+}

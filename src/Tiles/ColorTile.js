@@ -1,80 +1,52 @@
 import React from "react";
-import { HiLockClosed, HiLockOpen } from "react-icons/hi";
+import { HiLockClosed, HiLockOpen, HiOutlineX, HiDocumentDuplicate, HiSparkles } from "react-icons/hi";
+import { useSelector, useDispatch } from "react-redux";
+import { randomizeColor, toggleLock } from "../features/color/colorSlice";
 
-export default class ColorTile extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            tileColor: '',
-            isLocked: false
-        };
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState({
-            isLocked: !this.state.isLocked
-        });
-    }
+export const ColorTile = (props) => {
+    const dispatch = useDispatch();
+    let tileColor = useSelector((state) => state.color[props.id].tileColor);
+    let isLocked = useSelector((state) => state.color[props.id].isLocked);
     
-    componentDidMount(){
-
-        window.addEventListener('keydown', this.onkeydown);
-
-        this.setState({
-            tileColor: this.RandomizeColor()
-        });
-
-    }
-
-    RandomizeColor(){
-        if (!this.state.isLocked){
-            let red = Math.floor(Math.random() * 255).toString(16);
-            red = red.length < 2 ? red = '0' + red: red;
-            let green = Math.floor(Math.random() * 255).toString(16);
-            green = green.length < 2 ? green = '0' + green: green;
-            let blue = Math.floor(Math.random() * 255).toString(16);
-            blue = blue.length < 2 ? blue = '0' + blue: blue;
-            return '#' + red + blue + green;
-        } 
-        return this.state.tileColor;
-    }
-
-    onkeydown = (event) => {
-        var keyPressed = event.key;
-        if (keyPressed === ' '){
-            this.setState({
-                tileColor: this.RandomizeColor()
-            });
-            console.log(this.state.tileColor);
-      }
-    
-    };
-
-    unlock() {
+    function unlock() {
         return <HiLockOpen />;
     }
+    function lock() {
+        return <HiLockClosed style={{visibility: "visible"}}/>;
+    }
+    function deletor(){ 
+        return <HiOutlineX />
+    }
+    function adder(){
+        return <HiSparkles />
+    }
+    function switcher(){
+        return <HiDocumentDuplicate />
+    }
+    function copyToClipboard(){
+        navigator.clipboard.writeText(tileColor)
+        alert(`Copied ${tileColor} to clipboard`)
+    }
     
-    lock() {
-        return <HiLockClosed />;
-    }
-
-    componentWillUnmount(){
-        // This is to tear down the did Mount piece
-
-    }
-    render() {
-        return (
+    return (
         <>
             <div className="Canvas" 
-                style={{backgroundColor: this.state.tileColor}}> 
-                {this.state.tileColor.toUpperCase()}
-                <div className="Lock" 
-                    onClick = {() => (!this.handleClick())}>
-                    {this.state.isLocked ? this.lock(): this.unlock()}
+                width={props.width}
+                style={{backgroundColor: tileColor}}> 
+                <div className="CanvasColor" onClick={copyToClipboard}>{tileColor.toUpperCase()}</div>
+                <div className="Adjustor"
+                    onClick={() => dispatch(randomizeColor(props.id))}>{adder()}</div>
+                    <strong>
+                        <div className="Adjustor"
+                            onClick={copyToClipboard}>{switcher()}</div>
+                    </strong>
+                <div className="Adjustor" 
+                    onClick = {() => dispatch(toggleLock(props.id))}>
+                    {isLocked ? lock(): unlock()}
                 </div>
             </div>
         </>
-        );
-    }
-}
+    )
+}    
+
+export default ColorTile;
