@@ -1,6 +1,7 @@
 # Color-Palette
 
 This is an application to create a color palette with randomly generated colors. 
+It can be accessed here: https://trevorhardee.github.io/Color-Palette/
 
 # How it works
 The user can change the color of all of the unlocked palettes by clicking the generate button or pressing the space bar. An individual palette can be changed by clicking on the top icon when hovering on the palette. The hex color code can be copied by clicking on the second icon when hovering on the palette. The palette can be locked from changing when the third icon is clicked. The user should see a locked icon on the palettes that have been locoked.
